@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-function App () {
+import { FormattedMessage } from 'react-intl';
+function App (props) {
   const [allData, setAllData] = useState(null);
   const [page] = useState(1);
   const [indiaCases, setIndiaCases] = useState(null);
@@ -25,7 +24,19 @@ function App () {
   }, [page]);
   return (
     <div className="App container ">
-      <h3> Corona Cases, Recoveries and Deaths</h3>
+      <h3> <FormattedMessage id="title" /></h3>
+      <div className="form-group row">
+        <label for="changeLange" className="col-sm-4 "><FormattedMessage id="changeLanguage" /></label>
+        <div className="col-sm-8">
+
+          <select className="form-control " id="changeLange" onChange={(e) => { props.changeLanguage(e.target.value) }}
+          >
+            <option value="te" selected>తెలుగు</option>
+            <option value="en">English</option>
+
+          </select>
+        </div>
+      </div>
       <div className='row'>
         {allData ? getAllData(allData) : 'Loading...'}
       </div>
@@ -41,10 +52,10 @@ function getCases (cases, indiaCases) {
     <thead>
 
       <tr>
-        <th> Country</th>
-        <th> Cases</th>
-        <th> Recoveries</th>
-        <th> Deaths</th>
+        <th> <FormattedMessage id="country" /></th>
+        <th> <FormattedMessage id="cases" /></th>
+        <th> <FormattedMessage id="recovered" /></th>
+        <th> <FormattedMessage id="deaths" /></th>
       </tr>
     </thead>
     <tbody>
@@ -68,22 +79,22 @@ function getAllData (allData) {
 
     <tbody>
       <tr>
-        <td>Cases</td>
+        <td><FormattedMessage id="cases" /></td>
         <td>{allData.cases}</td>
 
       </tr>
       <tr>
-        <td>Recovered</td>
+        <td><FormattedMessage id="recovered" /></td>
         <td>{allData.recovered}</td>
 
       </tr>
       <tr>
-        <td>Deaths</td>
+        <td><FormattedMessage id="deaths" /></td>
         <td>{allData.deaths}</td>
 
       </tr>
       <tr>
-        <td>Updated time</td>
+        <td><FormattedMessage id="updated" /></td>
         <td>{new Date(allData.updated).toLocaleString()}</td>
 
       </tr>
