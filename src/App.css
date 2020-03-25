@@ -1,5 +1,7 @@
-.App {
-  text-align: center;
+
+
+.App table.total-details td{
+  text-align: right;
 }
 
 .App-logo {
