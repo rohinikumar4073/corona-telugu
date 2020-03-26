@@ -11,14 +11,16 @@ function App (props) {
 
   useEffect(() => {
 
-    fetch('https://covid19-server.chrismichael.now.sh/api/v1/AllReports').then((res) => res.json()).then(data => {
-      setAllData(data.reports[0]);
-      setCases(data.reports[0].table[0]);
+    fetch('https://corona.lmao.ninja/all').then((res) => res.json()).then(data => {
+      setAllData(data);
     })
-    fetch('https://covid19-server.chrismichael.now.sh/api/v1/ReportsByCountries/India').then((res) => res.json()).then(data => {
-      setIndiaCases(data.report);
-    })
-   
+
+    fetch('https://corona.lmao.ninja/countries?sort=cases').then((res) => res.json()).then(cases => {
+      setCases(cases);
+    });
+    fetch('https://corona.lmao.ninja/countries/India').then((res) => res.json()).then(cases => {
+      setIndiaCases(cases);
+    });
   }, [page]);
   return (
     <div className="App container ">
@@ -56,25 +58,15 @@ function getCases (cases, indiaCases) {
       </tr>
     </thead>
     <tbody>
-      {indiaCases ? getIndianCaseDetails(indiaCases) : <tr><td>'Loading...'</td></tr>}
+      {indiaCases ? getCaseDetails(indiaCases) : <tr><td>'Loading...'</td></tr>}
       {cases.map(caseItem => getCaseDetails(caseItem))}
     </tbody>
   </table>
 }
 
 function getCaseDetails (caseItem) {
-  return (<tr key={caseItem.Country}>
-    <td><FormattedMessage id={caseItem.Country} /></td>
-    <td>{caseItem.TotalCases}</td>
-    <td>{caseItem.TotalRecovered}</td>
-    <td>{caseItem.TotalDeaths}</td>
-
-  </tr >)
-}
-
-function getIndianCaseDetails (caseItem) {
-  return (<tr key={caseItem.Country}>
-    <td><FormattedMessage id="India" /></td>
+  return (<tr key={caseItem.country}>
+    <td><FormattedMessage id={caseItem.country} /></td>
     <td>{caseItem.cases}</td>
     <td>{caseItem.recovered}</td>
     <td>{caseItem.deaths}</td>
@@ -100,7 +92,11 @@ function getAllData (allData) {
         <td>{allData.deaths}</td>
 
       </tr>
-      
+      <tr>
+        <td><FormattedMessage id="updated" /></td>
+        <td>{new Date(allData.updated).toLocaleString()}</td>
+
+      </tr>
     </tbody>
   </table>
 }
