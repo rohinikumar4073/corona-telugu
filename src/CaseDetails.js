@@ -48,8 +48,9 @@ function getCases (cases, indiaCases) {
         <thead>
           <tr>
             <th> <FormattedMessage id="country" /></th>
-            <th> <FormattedMessage id="NewCases" /></th>
             <th> <FormattedMessage id="cases" /></th>
+            <th> <FormattedMessage id="NewCases" /></th>
+
             <th> <FormattedMessage id="recovered" /></th>
             <th> <FormattedMessage id="deaths" /></th>
           </tr>
