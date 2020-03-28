@@ -8,7 +8,6 @@ export default function CaseDetails (props) {
   const [indianCases, setIndianCases] = useState(null);
 
   const [localCopyCases, setLocalCopyCases] = useState(null);
-  const [page] = useState(1);
 
   useEffect(() => {
     setLocalCopyCases(cases);
@@ -50,7 +49,6 @@ function getCases (cases, indiaCases) {
             <th> <FormattedMessage id="country" /></th>
             <th> <FormattedMessage id="cases" /></th>
             <th> <FormattedMessage id="NewCases" /></th>
-
             <th> <FormattedMessage id="recovered" /></th>
             <th> <FormattedMessage id="deaths" /></th>
           </tr>
@@ -71,16 +69,6 @@ function getCaseDetails (caseItem) {
     <td>{caseItem.NewCases}</td>
     <td>{caseItem.TotalRecovered}</td>
     <td>{caseItem.TotalDeaths}</td>
-
-  </tr >)
-}
-
-function getIndianCaseDetails (caseItem) {
-  return (<tr key={caseItem.Country}>
-    <td><FormattedMessage id="India" /></td>
-    <td>{caseItem.cases}</td>
-    <td>{caseItem.recovered}</td>
-    <td>{caseItem.deaths}</td>
 
   </tr >)
 }
