@@ -5,3 +5,7 @@
 }
 
 
+.App .box{
+  width:100%;
+}
+.bar { fill: steelblue; }

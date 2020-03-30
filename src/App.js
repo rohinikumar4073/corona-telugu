@@ -6,13 +6,14 @@ import '@forevolve/bootstrap-dark/dist/css/bootstrap-dark.min.css';
 import { FormattedMessage } from 'react-intl';
 import CaseDetails from './CaseDetails';
 import Loader from './Loader';
-
+import DailyCasesChart from './DailyCasesChart'
 
 function App (props) {
 
   const [allData, setAllData] = useState(null);
   const [page] = useState(1);
   const [cases, setCases] = useState(null);
+  const [dailyCases, setDailyCases] = useState(null);
 
 
   useEffect(() => {
@@ -21,8 +22,10 @@ function App (props) {
       setAllData(data.reports[0]);
       setCases(data.reports[0].table[0]);
     })
-  
-
+    fetch('https://corona.lmao.ninja/v2/historical/India').then((res) => res.json()).then(data => {
+      console.log(data);
+      setDailyCases(data);
+    });
   }, [page]);
   return (
     <div className="App container ">
@@ -39,9 +42,14 @@ function App (props) {
         </div>
       </div>
       <div className='row'>
-        {allData ? getAllData(allData) : <Loader/>}
+      <h4> <FormattedMessage id="CasesInIndia" /></h4>
+        {dailyCases ? <DailyCasesChart dailyCases={dailyCases} /> : <Loader />}
       </div>
-      <CaseDetails cases={cases}  setCases={setCases} ></CaseDetails>
+      
+      <CaseDetails cases={cases} setCases={setCases} ></CaseDetails>
+      <div className='row'>
+        {allData ? getAllData(allData) : <Loader />}
+      </div>
     </div>
   );
 }
