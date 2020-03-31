@@ -23,7 +23,6 @@ function App (props) {
       setCases(data.reports[0].table[0]);
     })
     fetch('https://corona.lmao.ninja/v2/historical/India').then((res) => res.json()).then(data => {
-      console.log(data);
       setDailyCases(data);
     });
   }, [page]);

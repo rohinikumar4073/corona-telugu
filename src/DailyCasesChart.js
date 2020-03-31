@@ -1,13 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import * as d3 from "d3";
-
+import './DailyCases.css'
 function convertDataToArray (dailyCases) {
   let cases = dailyCases.timeline.cases;
+  let recovered = dailyCases.timeline.recovered;
+  let deaths = dailyCases.timeline.deaths;
+
   let dailyCasesArry = [];
   for (const property in cases) {
-    dailyCasesArry.push({ date: property.replace('/20', ''), data: parseInt(cases[property]) });
+    if (parseInt(property[0]) > 2) {
+      dailyCasesArry.push({ date: property + '3', data: parseInt(deaths[property]), className: 'deaths' });
+      dailyCasesArry.push({ date: property + '2', data: parseInt(recovered[property]), className: 'recovered' });
+      dailyCasesArry.push({ date: property + '1', data: parseInt(cases[property]), className: 'cases' });
+    }
+
   }
-  return dailyCasesArry.filter(dailyCasesData => dailyCasesData.data > 5);
+  console.log('dailyCasesArry', dailyCasesArry);
+  return dailyCasesArry;
 }
 
 export default function (props) {
@@ -17,7 +26,8 @@ export default function (props) {
 
   useEffect(() => {
     let boxWidth = document.querySelector(".box").offsetWidth;
-    var margin = { top: 20, right: 20, bottom: 30, left: 40 },
+
+    let margin = { top: 20, right: 20, bottom: 30, left: 40 },
       width = boxWidth - margin.left - margin.right,
       height = 250 - margin.top - margin.bottom;
     var x = d3.scaleBand()
@@ -37,7 +47,7 @@ export default function (props) {
     svg.selectAll(".bar")
       .data(dailCasesArray)
       .enter().append("rect")
-      .attr("class", "bar")
+      .attr("class", function (d) { return (d.className); })
       .attr("x", function (d) { return x(d.date); })
       .attr("width", x.bandwidth())
       .attr("y", function (d) { return y(d.data); })
