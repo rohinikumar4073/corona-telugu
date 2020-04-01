@@ -13,7 +13,7 @@ export default function CaseDetails (props) {
     setLocalCopyCases(cases);
     if (cases) {
       let filterCases = cases.filter(caseItem =>
-        caseItem.Country === 'India');
+        caseItem.country === 'India');
       setIndianCases(filterCases);
     }
 
@@ -63,12 +63,12 @@ function getCases (cases, indiaCases) {
 }
 
 function getCaseDetails (caseItem) {
-  return (<tr key={caseItem.Country}>
-    <td><FormattedMessage id={caseItem.Country} /></td>
-    <td>{caseItem.TotalCases}</td>
-    <td>{caseItem.NewCases}</td>
-    <td>{caseItem.TotalRecovered}</td>
-    <td>{caseItem.TotalDeaths}</td>
+  return (<tr key={caseItem.country}>
+    <td><img src={caseItem.countryInfo.flag} width='30'></img> <FormattedMessage id={caseItem.country} /> </td>
+    <td>{caseItem.cases}</td>
+    <td>{caseItem.todayCases}</td>
+    <td>{caseItem.recovered}</td>
+    <td>{caseItem.deaths}</td>
 
   </tr >)
 }

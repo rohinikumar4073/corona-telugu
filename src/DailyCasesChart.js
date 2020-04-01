@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import * as d3 from "d3";
-import './DailyCases.css'
+import './DailyCases.css';
+import { FormattedMessage } from 'react-intl';
+
 function convertDataToArray (dailyCases) {
   let cases = dailyCases.timeline.cases;
   let recovered = dailyCases.timeline.recovered;
@@ -15,10 +17,25 @@ function convertDataToArray (dailyCases) {
     }
 
   }
-  console.log('dailyCasesArry', dailyCasesArry);
   return dailyCasesArry;
 }
+function createLegends () {
+  return <div className='bar-chart-legend col-sm-12'>
+    <div className='legend-wrapper'>
+      <span><FormattedMessage id="cases" /></span>
+      <span className="cases-legend legend"></span>
+    </div>
+    <div className='legend-wrapper'>
+      <span><FormattedMessage id="recovered" /></span>
+      <span className="cases-recovered legend"></span>
+    </div>
+    <div className='legend-wrapper'>
+      <span><FormattedMessage id="deaths" /></span>
+      <span className="cases-deaths legend"></span>
+    </div>
 
+  </div>
+}
 export default function (props) {
   let { dailyCases } = props;
   let dailCasesArray = convertDataToArray(dailyCases);
@@ -53,11 +70,14 @@ export default function (props) {
       .attr("y", function (d) { return y(d.data); })
       .attr("height", function (d) { return height - y(d.data); });
 
-
     // add the y Axis
     svg.append("g")
       .call(d3.axisLeft(y));
   }, [dailyCases]);
 
-  return <div className='box'></div>;
+  return (
+    <div className=' col-sm-12'>
+      {createLegends()}
+      <div className='box col-sm-12'></div>
+    </div>);
 }

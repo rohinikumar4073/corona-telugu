@@ -1,3 +1,33 @@
-.cases { fill: steelblue; }
-.deaths { fill: red; }
-.recovered { fill: greenyellow; }
+.cases {
+  fill: steelblue;
+}
+.deaths {
+  fill: red;
+}
+.recovered {
+  fill: greenyellow;
+}
+.bar-chart-legend {
+  display: flex;
+}
+.legend{
+  width: 20px;
+  display: inline-block;
+  height: 10px;;
+}
+.bar-chart-legend .cases-legend {
+  background-color: steelblue;
+}
+
+.bar-chart-legend .cases-deaths {
+  background-color: red;
+}
+.bar-chart-legend .cases-recovered {
+  background-color: greenyellow;
+}
+.legend-wrapper {
+  margin-right: 10px;
+}
+.legend-wrapper .legend{
+  margin-left: 5px;
+}
