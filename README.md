@@ -1,3 +1,5 @@
-### Corona Telugu
+### కోవిడ్ 19 తెలుగు
 
-This app provide information of corona in telugu language . This shows latest updates and tips to fight corona.
+ఈ వెబ్ అప్లికేషన్ తెలుగు భాషలో కరోనా సమాచారాన్ని అందిస్తుంది. కరోనాతో పోరాడటానికి ఇది తాజా నవీకరణలు మరియు చిట్కాలను చూపుతుంది
+
+https://corona-telugu.herokuapp.com/
