@@ -22,7 +22,9 @@ export default class {
   }
   static converToInidanFormat (property) {
     let date = property.split('/');
-    return `${date[1]}/${date[0]}/${date[2]}`;
+    if (date.length === 3)
+      return `${date[1]}/${date[0]}/${date[2]}`;
+    return property
   }
 }
 

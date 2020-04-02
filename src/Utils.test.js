@@ -14,6 +14,6 @@ test('Test for conversion working fine', function () {
   expect(convertedNumber).toBe('1,23,54,300')
 });
 test('Test for the date', function () {
-  let convertData = Utils.converToInidanFormat('2\1\20');
-  expect(convertData).toBe('1\2\20');
+  let convertData = Utils.converToInidanFormat('2132');
+  expect(convertData).toBe('2132');
 })
