@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import * as d3 from "d3";
 import './DailyCases.css';
 import { FormattedMessage } from 'react-intl';
+import Utils from './Utils';
 
 function convertDataToArray (dailyCases) {
   let cases = dailyCases.timeline.cases;
@@ -9,11 +10,13 @@ function convertDataToArray (dailyCases) {
   let deaths = dailyCases.timeline.deaths;
 
   let dailyCasesArry = [];
+  let i = 0;
   for (const property in cases) {
     if (parseInt(property[0]) > 2) {
-      dailyCasesArry.push({ date: property + '3', data: parseInt(deaths[property]), className: 'deaths' });
-      dailyCasesArry.push({ date: property + '2', data: parseInt(recovered[property]), className: 'recovered' });
-      dailyCasesArry.push({ date: property + '1', data: parseInt(cases[property]), className: 'cases' });
+      let indianformat = Utils.converToInidanFormat(property);
+      dailyCasesArry.push({ item: i++, date: indianformat, data: parseInt(deaths[property]), className: 'deaths' });
+      dailyCasesArry.push({ item: i++, date: indianformat, data: parseInt(recovered[property]), className: 'recovered' });
+      dailyCasesArry.push({ item: i++, date: indianformat, data: parseInt(cases[property]), className: 'cases' });
     }
 
   }
@@ -58,14 +61,14 @@ export default function (props) {
       .append("g")
       .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
-    x.domain(dailCasesArray.map(function (d) { return d.date; }));
+    x.domain(dailCasesArray.map(function (d) { return d.item; }));
     y.domain([0, d3.max(dailCasesArray, function (d) { return d.data; })]);
     // append the rectangles for the bar chart
     svg.selectAll(".bar")
       .data(dailCasesArray)
       .enter().append("rect")
       .attr("class", function (d) { return (d.className); })
-      .attr("x", function (d) { return x(d.date); })
+      .attr("x", function (d) { return x(d.item); })
       .attr("width", x.bandwidth())
       .attr("y", function (d) { return y(d.data); })
       .attr("height", function (d) { return height - y(d.data); });
@@ -73,6 +76,10 @@ export default function (props) {
     // add the y Axis
     svg.append("g")
       .call(d3.axisLeft(y));
+    svg.append("g").attr("transform", `translate(0, ${height})`)
+      .call(d3.axisBottom(x.domain(dailCasesArray.map(function (d) { return d.date; }))).tickValues(
+        [dailCasesArray[0].date,
+        dailCasesArray[dailCasesArray.length - 1].date]));
   }, [dailyCases]);
 
   return (

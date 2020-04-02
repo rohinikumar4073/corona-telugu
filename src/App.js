@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@forevolve/bootstrap-dark/dist/css/bootstrap-dark.min.css';
-
+import Utils from './Utils';
 import { FormattedMessage } from 'react-intl';
 import CaseDetails from './CaseDetails';
 import Loader from './Loader';
@@ -63,25 +63,22 @@ function getAllData (allData) {
     <tbody>
       <tr>
         <td><FormattedMessage id="cases" /></td>
-        <td>{allData.cases}</td>
+        <td>{Utils.convertToIndianMetrics(allData.cases)}</td>
 
       </tr>
       <tr>
         <td><FormattedMessage id="recovered" /></td>
-        <td>{allData.recovered}</td>
+        <td>{Utils.convertToIndianMetrics(allData.recovered)}</td>
 
       </tr>
       <tr>
         <td><FormattedMessage id="deaths" /></td>
-        <td>{allData.deaths}</td>
-
+        <td>{Utils.convertToIndianMetrics(allData.deaths)}</td>
       </tr>
       <tr>
         <td><FormattedMessage id="updated" /></td>
         <td>{new Date(allData.updated).toLocaleString()}</td>
-
       </tr>
-
     </tbody>
   </table>
 }

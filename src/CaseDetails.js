@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Loader from './Loader';
-import './CaseDetails.css'
+import './CaseDetails.css';
+import Utils from './Utils';
+
 export default function CaseDetails (props) {
   const { cases } = props;
   const [searchCountry, setSearchCountry] = useState('');
@@ -65,10 +67,10 @@ function getCases (cases, indiaCases) {
 function getCaseDetails (caseItem) {
   return (<tr key={caseItem.country}>
     <td><img src={caseItem.countryInfo.flag} width='30'></img> <FormattedMessage id={caseItem.country} /> </td>
-    <td>{caseItem.cases}</td>
-    <td>{caseItem.todayCases}</td>
-    <td>{caseItem.recovered}</td>
-    <td>{caseItem.deaths}</td>
+    <td>{Utils.convertToIndianMetrics(caseItem.cases)}</td>
+    <td>{Utils.convertToIndianMetrics(caseItem.todayCases)}</td>
+    <td>{Utils.convertToIndianMetrics(caseItem.recovered)}</td>
+    <td>{Utils.convertToIndianMetrics(caseItem.deaths)}</td>
 
   </tr >)
 }
