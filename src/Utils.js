@@ -26,5 +26,8 @@ export default class {
       return `${date[1]}/${date[0]}/${date[2]}`;
     return property
   }
+  static convertToLakhs (d) {
+    return (d / 1e5).toFixed(1);
+  }
 }
 

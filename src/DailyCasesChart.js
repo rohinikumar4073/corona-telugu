@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as d3 from "d3";
 import './DailyCases.css';
 import { FormattedMessage } from 'react-intl';
@@ -39,52 +39,88 @@ function createLegends () {
 
   </div>
 }
+function getHistoricalDataFromCountry (countryName) {
+  fetch('https://corona.lmao.ninja/v2/historical/' + countryName).then(
+    (response) => response.json()
+  ).then(data => {
+    document.querySelector('.box').innerHTML = '';
+    if(data.timeline){
+      let dailyCasesArray = convertDataToArray(data);
+      loadChart(dailyCasesArray);
+    }
+   ;
+  })
+}
 export default function (props) {
-  let { dailyCases } = props;
-  let dailCasesArray = convertDataToArray(dailyCases);
-
+  let { countryNames } = props;
+  countryNames = countryNames.sort();
+  let [selectedCountryName, setSelectedCountryName] = useState('India');
 
   useEffect(() => {
-    let boxWidth = document.querySelector(".box").offsetWidth;
-
-    let margin = { top: 20, right: 20, bottom: 30, left: 40 },
-      width = boxWidth - margin.left - margin.right,
-      height = 250 - margin.top - margin.bottom;
-    var x = d3.scaleBand()
-      .range([0, width])
-      .padding(0.1);
-    var y = d3.scaleLinear()
-      .range([height, 0]);
-    var svg = d3.select('.box').append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
-    x.domain(dailCasesArray.map(function (d) { return d.item; }));
-    y.domain([0, d3.max(dailCasesArray, function (d) { return d.data; })]);
-    // append the rectangles for the bar chart
-    svg.selectAll(".bar")
-      .data(dailCasesArray)
-      .enter().append("rect")
-      .attr("class", function (d) { return (d.className); })
-      .attr("x", function (d) { return x(d.item); })
-      .attr("width", x.bandwidth())
-      .attr("y", function (d) { return y(d.data); })
-      .attr("height", function (d) { return height - y(d.data); });
-
-    // add the y Axis
-    svg.append("g")
-      .call(d3.axisLeft(y));
-    svg.append("g").attr("transform", `translate(0, ${height})`)
-      .call(d3.axisBottom(x.domain(dailCasesArray.map(function (d) { return d.date; }))).tickValues(
-        [dailCasesArray[0].date,
-        dailCasesArray[dailCasesArray.length - 1].date]));
-  }, [dailyCases]);
-
+    getHistoricalDataFromCountry(selectedCountryName);
+  }, []);
   return (
     <div className=' col-sm-12'>
+      <div className="form-group row">
+        <label for="changeLange" className=" col-sm-6 ">
+          <FormattedMessage id="ChangeCountry"/>
+        </label>
+        <div className='col-sm-6'>
+          <select className="form-control " id="changeLange" onChange={(e) => {
+            setSelectedCountryName(e.target.value);
+            getHistoricalDataFromCountry(e.target.value)
+          }}>
+            {countryNames.map(countryName => {
+              let selected = false;
+              if (selectedCountryName === countryName) {
+                selected = true;
+              }
+              return <option value={countryName} selected={selected} >{countryName}</option>
+            }
+            )}
+          </select>
+        </div>
+      </div>
       {createLegends()}
       <div className='box col-sm-12'></div>
     </div>);
+}
+
+function loadChart (dailyCasesArray) {
+  let boxWidth = document.querySelector(".box").offsetWidth;
+  let margin = { top: 20, right: 20, bottom: 30, left: 50 }, width = boxWidth - margin.left - margin.right, height = 250 - margin.top - margin.bottom;
+  let x = d3.scaleBand()
+    .range([0, width])
+    .padding(0.1);
+  let y = d3.scaleLinear()
+    .range([height, 0]);
+  let svg = d3.select('.box').append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  x.domain(dailyCasesArray.map(function (d) { return d.item; }));
+  let maxDailyCases = d3.max(dailyCasesArray, function (d) { return d.data; });
+  y.domain([0, maxDailyCases]);
+  // append the rectangles for the bar chart
+  svg.selectAll(".bar")
+    .data(dailyCasesArray)
+    .enter().append("rect")
+    .attr("class", function (d) { return (d.className); })
+    .attr("x", function (d) { return x(d.item); })
+    .attr("width", x.bandwidth())
+    .attr("y", function (d) { return y(d.data); })
+    .attr("height", function (d) { return height - y(d.data); });
+  // add the y Axis
+  svg.append("g")
+    .call(d3.axisLeft(y).tickFormat(function (d) {
+      if (maxDailyCases < 1e5) {
+        return `${d}`;
+      }
+      let tick = Utils.convertToLakhs(d);
+      return this.parentNode.nextSibling ? `\xa0${tick}` : `$${tick} lakhs`;
+    }));
+  svg.append("g").attr("transform", `translate(0, ${height})`)
+    .call(d3.axisBottom(x.domain(dailyCasesArray.map(function (d) { return d.date; }))).tickValues([dailyCasesArray[0].date,
+    dailyCasesArray[dailyCasesArray.length - 1].date]));
 }

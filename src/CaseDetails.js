@@ -8,9 +8,9 @@ export default function CaseDetails (props) {
   const { cases } = props;
   const [searchCountry, setSearchCountry] = useState('');
   const [indianCases, setIndianCases] = useState(null);
-
   const [localCopyCases, setLocalCopyCases] = useState(null);
 
+ 
   useEffect(() => {
     setLocalCopyCases(cases);
     if (cases) {
@@ -31,7 +31,7 @@ export default function CaseDetails (props) {
           setSearchCountry(e.target.value);
           let toLowerCaseValue = e.target.value.toLowerCase();
           let filterCases = cases.filter(caseItem =>
-            caseItem.Country.toLowerCase().includes(toLowerCaseValue));
+            caseItem.country.toLowerCase().includes(toLowerCaseValue));
           setLocalCopyCases(filterCases);
         }}></input>
       </div>

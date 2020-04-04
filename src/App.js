@@ -13,18 +13,17 @@ function App (props) {
   const [allData, setAllData] = useState(null);
   const [page] = useState(1);
   const [cases, setCases] = useState(null);
-  const [dailyCases, setDailyCases] = useState(null);
+  const [countryNames, setCountries] = useState(null);
 
 
   useEffect(() => {
     fetch('https://corona.lmao.ninja/all').then((res) => res.json()).then(data => {
       setAllData(data);
     })
-    fetch('https://corona.lmao.ninja/countries?sort=cases').then((res) => res.json()).then(cases => {
+    fetch('https://corona.lmao.ninja/countries?sort=cases').then((res) => res.json()).then(
+      cases => {
       setCases(cases);
-    });
-    fetch('https://corona.lmao.ninja/v2/historical/India').then((res) => res.json()).then(data => {
-      setDailyCases(data);
+      setCountries(cases.map(caseItem => caseItem.country));
     });
   }, [page]);
   return (
@@ -41,14 +40,12 @@ function App (props) {
           </select>
         </div>
       </div>
-
-
       <div className='row'>
         {allData ? getAllData(allData) : <Loader />}
       </div>
       <div className='row'>
         <h4 className='col-sm-12'> <FormattedMessage id="CasesInIndia" /></h4>
-        {dailyCases ? <DailyCasesChart dailyCases={dailyCases} /> : <Loader />}
+        {countryNames ? <DailyCasesChart countryNames={countryNames} /> : <Loader />}
       </div>
       <CaseDetails cases={cases} setCases={setCases} ></CaseDetails>
 

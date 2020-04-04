@@ -17,3 +17,10 @@ test('Test for the date', function () {
   let convertData = Utils.converToInidanFormat('2132');
   expect(convertData).toBe('2132');
 })
+
+test('Test for format string', function () {
+  let formatString = Utils.convertToLakhs(2500000, 2500000);
+  expect(formatString).toBe('25.0');
+  formatString = Utils.convertToLakhs(124, 600);
+  expect(formatString).toBe('124');
+});

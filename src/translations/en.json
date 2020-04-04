@@ -12,6 +12,8 @@
   "FilterByCountry": "Filter By Country ",
   "NewCases" :"New Cases",
   "Total":"Total",
-  "CasesInIndia": "Cases in India"
+  "CasesInIndia": "Cases by dialy",
+  "ChangeCountry":"Change Country"
+
 
 }

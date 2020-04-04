@@ -209,6 +209,7 @@
   "TurksandCaicosIslands": "టూర్క్స్అండ్కైకోస్ఐస్ల్యాండ్స్",
   "FilterByCountry": "దేశం వారీగా ఫిల్టర్ చేయండి ",
   "NewCases": "కొత్తవి",
-  "CasesInIndia": "రోజూ వారి భారతదేశ కేసులు ",
-  "Total": "మొత్తం"
+  "CasesInIndia": "రోజూ వారి కేసులు ",
+  "Total": "మొత్తం",
+  "ChangeCountry":"దేశం మార్చు"
 }
