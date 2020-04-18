@@ -3,7 +3,7 @@ import * as d3 from "d3";
 import './DailyCases.css';
 import { FormattedMessage } from 'react-intl';
 import Utils from './Utils';
-
+import Api from './Api';
 function convertDataToArray (dailyCases) {
   let cases = dailyCases.timeline.cases;
   let recovered = dailyCases.timeline.recovered;
@@ -40,7 +40,7 @@ function createLegends () {
   </div>
 }
 function getHistoricalDataFromCountry (countryName) {
-  fetch('https://corona.lmao.ninja/v2/historical/' + countryName).then(
+  fetch(Api.historicalData + countryName).then(
     (response) => response.json()
   ).then(data => {
     document.querySelector('.box').innerHTML = '';

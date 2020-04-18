@@ -7,7 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import CaseDetails from './CaseDetails';
 import Loader from './Loader';
 import DailyCasesChart from './DailyCasesChart'
-
+import Api from './Api'
 function App (props) {
 
   const [allData, setAllData] = useState(null);
@@ -17,14 +17,14 @@ function App (props) {
 
 
   useEffect(() => {
-    fetch('https://corona.lmao.ninja/all').then((res) => res.json()).then(data => {
+    fetch(Api.getWorldCoronaCases).then((res) => res.json()).then(data => {
       setAllData(data);
     })
-    fetch('https://corona.lmao.ninja/countries?sort=cases').then((res) => res.json()).then(
+    fetch(Api.getAllCountriesCoranaCases).then((res) => res.json()).then(
       cases => {
-      setCases(cases);
-      setCountries(cases.map(caseItem => caseItem.country));
-    });
+        setCases(cases);
+        setCountries(cases.map(caseItem => caseItem.country));
+      });
   }, [page]);
   return (
     <div className="App container ">
