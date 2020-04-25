@@ -8,3 +8,9 @@
 .App .box{
   width:100%;
 }
+
+body{
+  background-image: url(./corona-background.png);
+  background-blend-mode: overlay;
+  background-size:10%;
+}
