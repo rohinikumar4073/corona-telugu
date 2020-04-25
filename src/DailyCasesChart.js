@@ -3,77 +3,11 @@ import './DailyCases.css';
 import { FormattedMessage } from 'react-intl';
 import Api from './Api';
 import Utils from './Utils';
-import Chart from 'chart.js/dist/Chart.js';
-
+import ChartWrapper from './ChartWrapper';
+import createLegends from './Legends.js'
 export default function (props) {
-  function createLegends () {
-    return <div className='bar-chart-legend col-sm-12'>
-      <div className='legend-wrapper'>
-        <span><FormattedMessage id="cases" /></span>
-        <span className="cases-legend legend"></span>
-      </div>
-      <div className='legend-wrapper'>
-        <span><FormattedMessage id="recovered" /></span>
-        <span className="cases-recovered legend"></span>
-      </div>
-      <div className='legend-wrapper'>
-        <span><FormattedMessage id="deaths" /></span>
-        <span className="cases-deaths legend"></span>
-      </div>
 
-    </div>
-  }
-  function createCharts ({ totalCases, recoveredCases, deathCases, labels }) {
-    var ctx = document.getElementById('myChart').getContext('2d');
-    new Chart(ctx, {
-      // The type of chart we want to create
-      type: 'line',
-
-      // The data for our dataset
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Deaths',
-          data: deathCases,
-          borderColor: 'red',
-          backgroundColor: 'red',
-          cubicInterpolationMode: 'monotone'
-        }, {
-          label: 'Recovered cases',
-          data: recoveredCases,
-          borderColor: 'greenyellow',
-          backgroundColor: 'greenyellow',
-          cubicInterpolationMode: 'monotone'
-        }, {
-          label: 'All corona cases',
-          data: totalCases,
-          borderColor: 'steelblue',
-          backgroundColor: 'steelblue',
-          cubicInterpolationMode: 'monotone'
-        }]
-      },
-
-      // Configuration options go here
-      options: {
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [{
-            ticks: {
-              fontColor: "#CCC", // this here
-            },
-          }],
-          yAxes: [{
-            ticks: {
-              fontColor: "#CCC", // this here
-            }
-          }]
-        }
-      }
-
-    });
-  }
+  
   function getLabelsForChart (dailyCases) {
     let cases = dailyCases.timeline.cases;
     let recovered = dailyCases.timeline.recovered;
@@ -97,14 +31,14 @@ export default function (props) {
     fetch(Api.historicalData + countryName).then(
       (response) => response.json()
     ).then(data => {
-      document.querySelector('.box').innerHTML = '';
       if (data.timeline) {
         let chartDatasets = getLabelsForChart(data);
-        createCharts(chartDatasets);
+        ChartWrapper.createCharts(chartDatasets);
       }
       ;
     })
   }
+
   let { countryNames } = props;
   countryNames = countryNames.sort();
   let [selectedCountryName, setSelectedCountryName] = useState('India');
