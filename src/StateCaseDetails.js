@@ -6,29 +6,15 @@ import Utils from './Utils';
 
 export default function CaseDetails (props) {
   const { cases } = props;
-  const [searchCountry, setSearchCountry] = useState('');
-  const [indianCases, setIndianCases] = useState(null);
-  const [localCopyCases, setLocalCopyCases] = useState(null);
-
- 
-  useEffect(() => {
-    setLocalCopyCases(cases);
-    if (cases) {
-      let filterCases = cases.filter(caseItem =>
-        caseItem.country === 'India');
-      setIndianCases(filterCases);
-    }
-
-  }, [cases]);
 
   return (
     <div className='row'>
-      {localCopyCases ? getCases(localCopyCases, indianCases) :<Loader></Loader>}
+      {cases ? getCases(cases) :<Loader></Loader>}
     </div>
   )
 
 }
-function getCases (cases, indiaCases) {
+function getCases (cases) {
   return (
     <div className='col-sm-12 total-details-wrapper'>
       <table className='table '>
@@ -41,7 +27,6 @@ function getCases (cases, indiaCases) {
           </tr>
         </thead>
         <tbody>
-          {indiaCases.map(caseItem => getCaseDetails(caseItem))}
           {cases.map(caseItem => getCaseDetails(caseItem))}
         </tbody>
       </table>

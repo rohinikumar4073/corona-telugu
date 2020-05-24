@@ -50,11 +50,12 @@ function App (props) {
       </div>
 
       <div className='row'>
-        <div className='col-sm-12 col-md-6'>
-          {allData ? getAllData(allData) : <Loader />}
-        </div>
+        
         <div className='col-sm-12 col-md-6'>
           {countryNames ? <DailyCasesChart countryNames={countryNames} /> : <Loader />}
+        </div>
+        <div className='col-sm-12 col-md-6'>
+          {allData ? getAllData(allData) : <Loader />}
         </div>
       </div>
 
