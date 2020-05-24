@@ -1,6 +1,6 @@
 export default class {
   static convertToIndianMetrics (number) {
-    let numberString = String(number);
+    let numberString = String(parseInt(number));
     let lengthOfTheString = numberString.length;
     if (lengthOfTheString < 4) {
       return numberString;

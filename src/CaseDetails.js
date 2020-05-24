@@ -50,9 +50,11 @@ function getCases (cases, indiaCases) {
           <tr>
             <th> <FormattedMessage id="country" /></th>
             <th> <FormattedMessage id="cases" /></th>
-            <th> <FormattedMessage id="NewCases" /></th>
             <th> <FormattedMessage id="recovered" /></th>
             <th> <FormattedMessage id="deaths" /></th>
+            <th> <FormattedMessage id="critical" /></th>
+            <th> <FormattedMessage id="tests" /></th>
+            <th> <FormattedMessage id="testsPer10lakhs" /></th>
           </tr>
         </thead>
         <tbody>
@@ -68,9 +70,12 @@ function getCaseDetails (caseItem) {
   return (<tr key={caseItem.country}>
     <td><img src={caseItem.countryInfo.flag} width='30'></img> <FormattedMessage id={caseItem.country} /> </td>
     <td>{Utils.convertToIndianMetrics(caseItem.cases)}</td>
-    <td>{Utils.convertToIndianMetrics(caseItem.todayCases)}</td>
     <td>{Utils.convertToIndianMetrics(caseItem.recovered)}</td>
     <td>{Utils.convertToIndianMetrics(caseItem.deaths)}</td>
+    <td>{Utils.convertToIndianMetrics(caseItem.critical)}</td>
+    <td>{Utils.convertToIndianMetrics(caseItem.tests)}</td>
+    <td>{Utils.convertToIndianMetrics(caseItem.testsPerOneMillion)}</td>
+
 
   </tr >)
 }
