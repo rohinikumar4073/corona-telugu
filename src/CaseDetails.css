@@ -1,3 +1,11 @@
-.total-details-wrapper{
-  overflow: auto;
+.total-details-wrapper {
+    overflow: auto;
+}
+.total-details-wrapper th,
+.total-details-wrapper td {
+    text-align: right;
+}
+.total-details-wrapper th:first-child,
+.total-details-wrapper td:first-child {
+    text-align: left;
 }

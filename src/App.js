@@ -8,12 +8,14 @@ import CaseDetails from './CaseDetails';
 import Loader from './Loader';
 import DailyCasesChart from './DailyCasesChart'
 import Api from './Api'
+import StateCaseDetails from './StateCaseDetails'
 function App (props) {
 
   const [allData, setAllData] = useState(null);
   const [page] = useState(1);
   const [cases, setCases] = useState(null);
   const [countryNames, setCountries] = useState(null);
+  const [indianStatesCases, setIndianStateCases] = useState(null);
 
 
   useEffect(() => {
@@ -24,6 +26,10 @@ function App (props) {
       cases => {
         setCases(cases);
         setCountries(cases.map(caseItem => caseItem.country));
+      });
+    fetch(Api.getInidanStateCases).then((res) => res.json()).then(
+      cases => {
+        setIndianStateCases(cases.states);
       });
   }, [page]);
   return (
@@ -41,12 +47,19 @@ function App (props) {
         </div>
       </div>
       <div className='row'>
-        {allData ? getAllData(allData) : <Loader />}
       </div>
+
       <div className='row'>
-        <h4 className='col-sm-12'> <FormattedMessage id="CasesInIndia" /></h4>
-        {countryNames ? <DailyCasesChart countryNames={countryNames} /> : <Loader />}
+        <div className='col-sm-12 col-md-6'>
+          {allData ? getAllData(allData) : <Loader />}
+        </div>
+        <div className='col-sm-12 col-md-6'>
+          {countryNames ? <DailyCasesChart countryNames={countryNames} /> : <Loader />}
+        </div>
       </div>
+
+      <StateCaseDetails cases={indianStatesCases} setCases={setIndianStateCases} ></StateCaseDetails>
+
       <CaseDetails cases={cases} setCases={setCases} ></CaseDetails>
 
     </div>
@@ -73,8 +86,29 @@ function getAllData (allData) {
         <td>{Utils.convertToIndianMetrics(allData.deaths)}</td>
       </tr>
       <tr>
-        <td><FormattedMessage id="updated" /></td>
-        <td>{new Date(allData.updated).toLocaleString()}</td>
+        <td><FormattedMessage id="critical" /></td>
+        <td>{Utils.convertToIndianMetrics(allData.critical)}</td>
+      </tr>
+
+      <tr>
+        <td><FormattedMessage id="tests" /></td>
+        <td>{Utils.convertToIndianMetrics(allData.tests)}</td>
+      </tr>
+      <tr>
+        <td><FormattedMessage id="testsPer10lakhs" /></td>
+        <td>{Utils.convertToIndianMetrics(allData.testsPerOneMillion)}</td>
+      </tr>
+      <tr>
+        <td><FormattedMessage id="activePer10lakhs" /></td>
+        <td>{Utils.convertToIndianMetrics(allData.activePerOneMillion)}</td>
+      </tr>
+      <tr>
+        <td><FormattedMessage id="recoveredPer10lakhs" /></td>
+        <td>{Utils.convertToIndianMetrics(allData.recoveredPerOneMillion)}</td>
+      </tr>
+      <tr>
+        <td><FormattedMessage id="population" /></td>
+        <td>{Utils.convertToIndianMetrics(allData.population)}</td>
       </tr>
     </tbody>
   </table>

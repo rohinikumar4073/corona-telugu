@@ -21,25 +21,11 @@ export default function CaseDetails (props) {
 
   }, [cases]);
 
-  return (<>
-    <div className="form-group row">
-      <label for="changeLange " className='col-sm-6 ' >
-        <FormattedMessage id="FilterByCountry" />
-      </label>
-      <div className='col-sm-6'>
-        <input className="form-control" value={searchCountry} onChange={(e) => {
-          setSearchCountry(e.target.value);
-          let toLowerCaseValue = e.target.value.toLowerCase();
-          let filterCases = cases.filter(caseItem =>
-            caseItem.country.toLowerCase().includes(toLowerCaseValue));
-          setLocalCopyCases(filterCases);
-        }}></input>
-      </div>
-    </div>
+  return (
     <div className='row'>
       {localCopyCases ? getCases(localCopyCases, indianCases) :<Loader></Loader>}
     </div>
-  </>)
+  )
 
 }
 function getCases (cases, indiaCases) {
@@ -48,13 +34,10 @@ function getCases (cases, indiaCases) {
       <table className='table '>
         <thead>
           <tr>
-            <th> <FormattedMessage id="country" /></th>
+            <th> <FormattedMessage id="state" /></th>
             <th> <FormattedMessage id="cases" /></th>
             <th> <FormattedMessage id="recovered" /></th>
             <th> <FormattedMessage id="deaths" /></th>
-            <th> <FormattedMessage id="critical" /></th>
-            <th> <FormattedMessage id="tests" /></th>
-            <th> <FormattedMessage id="testsPer10lakhs" /></th>
           </tr>
         </thead>
         <tbody>
@@ -67,14 +50,11 @@ function getCases (cases, indiaCases) {
 }
 
 function getCaseDetails (caseItem) {
-  return (<tr key={caseItem.country}>
-    <td><img src={caseItem.countryInfo.flag} width='30'></img> <FormattedMessage id={caseItem.country} /> </td>
+  return (<tr key={caseItem.state}>
+    <td>{caseItem.state}</td>
     <td>{Utils.convertToIndianMetrics(caseItem.cases)}</td>
     <td>{Utils.convertToIndianMetrics(caseItem.recovered)}</td>
     <td>{Utils.convertToIndianMetrics(caseItem.deaths)}</td>
-    <td>{Utils.convertToIndianMetrics(caseItem.critical)}</td>
-    <td>{Utils.convertToIndianMetrics(caseItem.tests)}</td>
-    <td>{Utils.convertToIndianMetrics(caseItem.testsPerOneMillion)}</td>
 
 
   </tr >)
