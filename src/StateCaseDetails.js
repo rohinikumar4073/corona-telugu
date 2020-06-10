@@ -21,7 +21,7 @@ function getCases (cases) {
         <thead>
           <tr>
             <th> <FormattedMessage id="state" /></th>
-            <th> <FormattedMessage id="cases" /></th>
+            <th> <FormattedMessage id="active" /></th>
             <th> <FormattedMessage id="recovered" /></th>
             <th> <FormattedMessage id="deaths" /></th>
           </tr>
