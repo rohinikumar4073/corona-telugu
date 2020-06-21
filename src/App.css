@@ -26,15 +26,16 @@
   color: white;
 }
 .recovered-cases-card table{
-  background-color: #1c65cc;
-  color: white;
-}
-.deaths-card table{
+
   background-color: #dbff56;
   color: black;
 }
-.critical-card table{
+.deaths-card table{
   background-color: #b22a19;
+  color: white;
+}
+.critical-card table{
+  background-color: #1c65cc;
   color: white;
 }
 .tests-card table{

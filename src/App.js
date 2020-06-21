@@ -49,20 +49,20 @@ function App (props) {
           <div className='col-sm-12 col-md-4 all-cases-card'>
             {getAllData(allData, 'cases')}
           </div>
+          <div className='col-sm-12 col-md-4 critical-card'>
+            {getAllData(allData, 'critical')}
+          </div>
           <div className='col-sm-12 col-md-4 recovered-cases-card'>
             {getAllData(allData, 'recovered')}
           </div>
           <div className='col-sm-12 col-md-4 deaths-card'>
             {getAllData(allData, 'deaths')}
           </div>
-          <div className='col-sm-12 col-md-4 critical-card'>
-            {getAllData(allData, 'critical')}
-          </div>
           <div className='col-sm-12 col-md-4 tests-card'>
             {getAllData(allData, 'tests')}
           </div>
         </div> : <Loader />}
-        <h3> <FormattedMessage id="Every Day Cases per country" /></h3>
+      <h3> <FormattedMessage id="Every Day Cases per country" /></h3>
 
 
       <div className='row'>
@@ -73,7 +73,7 @@ function App (props) {
       <h3> <FormattedMessage id="Cases per state" /></h3>
 
       <StateCaseDetails cases={indianStatesCases} setCases={setIndianStateCases} ></StateCaseDetails>
-     
+
       <h3> <FormattedMessage id="Cases per country" /></h3>
       <CaseDetails cases={cases} setCases={setCases} ></CaseDetails>
 
