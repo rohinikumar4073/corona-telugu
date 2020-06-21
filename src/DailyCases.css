@@ -9,6 +9,7 @@
 }
 .bar-chart-legend {
   display: flex;
+  margin:5px 0px;
 }
 .legend{
   width: 20px;

@@ -21,7 +21,7 @@ function getCases (cases) {
         <thead>
           <tr>
             <th> <FormattedMessage id="state" /></th>
-            <th> <FormattedMessage id="active" /></th>
+            <th> <FormattedMessage id="cases" /></th>
             <th> <FormattedMessage id="recovered" /></th>
             <th> <FormattedMessage id="deaths" /></th>
           </tr>
@@ -37,7 +37,7 @@ function getCases (cases) {
 function getCaseDetails (caseItem) {
   return (<tr key={caseItem.state}>
     <td>{caseItem.state}</td>
-    <td>{Utils.convertToIndianMetrics(caseItem.cases)}</td>
+    <td>{Utils.convertToIndianMetrics(caseItem.total)}</td>
     <td>{Utils.convertToIndianMetrics(caseItem.recovered)}</td>
     <td>{Utils.convertToIndianMetrics(caseItem.deaths)}</td>
 

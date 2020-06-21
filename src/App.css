@@ -1,19 +1,43 @@
 
 
-.App table.total-details td{
+.App table.total-details td:last-child{
   text-align: right;
 }
-
-
+.App table.total-details td:first-child{
+  text-align: left;
+}
+.App{
+  text-transform: capitalize;
+}
 .App .box{
   width:100%;
 }
 
-body{
-  background-image: url(./corona-background.png);
-  background-blend-mode: overlay;
-  background-size:10%;
+
+.App h3, .App .h3{
+  margin-top:10px;  margin-bottom:10px;
+
 }
 .container{
   font-weight: bold;
+}
+.all-cases-card table{
+  background-color: #225eb2;
+  color: white;
+}
+.recovered-cases-card table{
+  background-color: #1c65cc;
+  color: white;
+}
+.deaths-card table{
+  background-color: #dbff56;
+  color: black;
+}
+.critical-card table{
+  background-color: #b22a19;
+  color: white;
+}
+.tests-card table{
+  background-color: #ff523d;
+  color: white;
 }

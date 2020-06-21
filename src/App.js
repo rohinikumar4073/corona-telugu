@@ -16,8 +16,6 @@ function App (props) {
   const [cases, setCases] = useState(null);
   const [countryNames, setCountries] = useState(null);
   const [indianStatesCases, setIndianStateCases] = useState(null);
-
-
   useEffect(() => {
     fetch(Api.getWorldCoronaCases).then((res) => res.json()).then(data => {
       setAllData(data);
@@ -46,21 +44,37 @@ function App (props) {
           </select>
         </div>
       </div>
-      <div className='row'>
-      </div>
+      {allData ?
+        <div className='row'>
+          <div className='col-sm-12 col-md-4 all-cases-card'>
+            {getAllData(allData, 'cases')}
+          </div>
+          <div className='col-sm-12 col-md-4 recovered-cases-card'>
+            {getAllData(allData, 'recovered')}
+          </div>
+          <div className='col-sm-12 col-md-4 deaths-card'>
+            {getAllData(allData, 'deaths')}
+          </div>
+          <div className='col-sm-12 col-md-4 critical-card'>
+            {getAllData(allData, 'critical')}
+          </div>
+          <div className='col-sm-12 col-md-4 tests-card'>
+            {getAllData(allData, 'tests')}
+          </div>
+        </div> : <Loader />}
+        <h3> <FormattedMessage id="Every Day Cases per country" /></h3>
+
 
       <div className='row'>
-        
-        <div className='col-sm-12 col-md-6'>
+        <div className='col-sm-12'>
           {countryNames ? <DailyCasesChart countryNames={countryNames} /> : <Loader />}
         </div>
-        <div className='col-sm-12 col-md-6'>
-          {allData ? getAllData(allData) : <Loader />}
-        </div>
       </div>
+      <h3> <FormattedMessage id="Cases per state" /></h3>
 
       <StateCaseDetails cases={indianStatesCases} setCases={setIndianStateCases} ></StateCaseDetails>
-
+     
+      <h3> <FormattedMessage id="Cases per country" /></h3>
       <CaseDetails cases={cases} setCases={setCases} ></CaseDetails>
 
     </div>
@@ -68,49 +82,20 @@ function App (props) {
 }
 
 
-function getAllData (allData) {
+function getAllData (allData, type) {
   return <table className="table total-details">
-
+    <thead>
+      <tr>
+        <td colSpan="2" ><FormattedMessage id={type} /></td>
+      </tr>
+    </thead>
     <tbody>
       <tr>
-        <td><FormattedMessage id="cases" /></td>
-        <td>{Utils.convertToIndianMetrics(allData.cases)}</td>
+        <td><FormattedMessage id="world" /></td>
+        <td>{Utils.convertToIndianMetrics(allData[type])}</td>
 
       </tr>
-      <tr>
-        <td><FormattedMessage id="recovered" /></td>
-        <td>{Utils.convertToIndianMetrics(allData.recovered)}</td>
 
-      </tr>
-      <tr>
-        <td><FormattedMessage id="deaths" /></td>
-        <td>{Utils.convertToIndianMetrics(allData.deaths)}</td>
-      </tr>
-      <tr>
-        <td><FormattedMessage id="critical" /></td>
-        <td>{Utils.convertToIndianMetrics(allData.critical)}</td>
-      </tr>
-
-      <tr>
-        <td><FormattedMessage id="tests" /></td>
-        <td>{Utils.convertToIndianMetrics(allData.tests)}</td>
-      </tr>
-      <tr>
-        <td><FormattedMessage id="testsPer10lakhs" /></td>
-        <td>{Utils.convertToIndianMetrics(allData.testsPerOneMillion)}</td>
-      </tr>
-      <tr>
-        <td><FormattedMessage id="activePer10lakhs" /></td>
-        <td>{Utils.convertToIndianMetrics(allData.activePerOneMillion)}</td>
-      </tr>
-      <tr>
-        <td><FormattedMessage id="recoveredPer10lakhs" /></td>
-        <td>{Utils.convertToIndianMetrics(allData.recoveredPerOneMillion)}</td>
-      </tr>
-      <tr>
-        <td><FormattedMessage id="population" /></td>
-        <td>{Utils.convertToIndianMetrics(allData.population)}</td>
-      </tr>
     </tbody>
   </table>
 }
