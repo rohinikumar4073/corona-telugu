@@ -42,3 +42,7 @@
   background-color: #ff523d;
   color: white;
 }
+.languages-container{
+  display: flex;
+  justify-content: flex-end;
+}

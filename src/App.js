@@ -9,8 +9,8 @@ import Loader from './Loader';
 import DailyCasesChart from './DailyCasesChart'
 import Api from './Api'
 import StateCaseDetails from './StateCaseDetails'
+import Languages from './Languages';
 function App (props) {
-
   const [allData, setAllData] = useState(null);
   const [page] = useState(1);
   const [cases, setCases] = useState(null);
@@ -30,19 +30,18 @@ function App (props) {
         setIndianStateCases(cases.states);
       });
   }, [page]);
+
   return (
     <div className="App container ">
       <h3> <FormattedMessage id="title" /></h3>
       <div className="form-group row">
-        <label for="changeLange" className=" col-sm-6 ">
+        <label for="changeLange" className="col-6 ">
           <FormattedMessage id="changeLanguage" />
         </label>
-        <div className='col-sm-6'>
-          <select className="form-control " id="changeLange" onChange={(e) => { props.changeLanguage(e.target.value) }}>
-            <option value="te" selected>తెలుగు</option>
-            <option value="en">English</option>
-          </select>
+        <div className='col-6 languages-container'>
+          <Languages handleLanguageChange={(value) => { props.changeLanguage(value) }} />
         </div>
+
       </div>
       {allData ?
         <div className='row'>
