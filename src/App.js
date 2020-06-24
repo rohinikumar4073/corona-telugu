@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@forevolve/bootstrap-dark/dist/css/bootstrap-dark.min.css';
-import Utils from './Utils';
 import { FormattedMessage } from 'react-intl';
 import CaseDetails from './CaseDetails';
 import Loader from './Loader';
@@ -10,6 +9,7 @@ import DailyCasesChart from './DailyCasesChart'
 import Api from './Api'
 import StateCaseDetails from './StateCaseDetails'
 import Languages from './Languages';
+import CasesCard from './CasesCard';
 function App (props) {
   const [allData, setAllData] = useState(null);
   const [page] = useState(1);
@@ -46,19 +46,19 @@ function App (props) {
       {allData ?
         <div className='row'>
           <div className='col-sm-12 col-md-4 all-cases-card'>
-            {getAllData(allData, 'cases')}
+            <CasesCard cases={[{ "type": 'world', value: allData.cases }]} cardType="cases" />
           </div>
           <div className='col-sm-12 col-md-4 critical-card'>
-            {getAllData(allData, 'critical')}
+            <CasesCard cases={[{ "type": 'world', value: allData.critical }]} cardType="critical" />
           </div>
           <div className='col-sm-12 col-md-4 recovered-cases-card'>
-            {getAllData(allData, 'recovered')}
+            <CasesCard cases={[{ "type": 'world', value: allData.recovered }]} cardType="recovered" />
           </div>
           <div className='col-sm-12 col-md-4 deaths-card'>
-            {getAllData(allData, 'deaths')}
+            <CasesCard cases={[{ "type": 'world', value: allData.deaths }]} cardType="deaths" />
           </div>
           <div className='col-sm-12 col-md-4 tests-card'>
-            {getAllData(allData, 'tests')}
+            <CasesCard cases={[{ "type": 'world', value: allData.tests }]} cardType="tests" />
           </div>
         </div> : <Loader />}
       <h3> <FormattedMessage id="Every Day Cases per country" /></h3>
@@ -81,22 +81,6 @@ function App (props) {
 }
 
 
-function getAllData (allData, type) {
-  return <table className="table total-details">
-    <thead>
-      <tr>
-        <td colSpan="2" ><FormattedMessage id={type} /></td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><FormattedMessage id="world" /></td>
-        <td>{Utils.convertToIndianMetrics(allData[type])}</td>
 
-      </tr>
-
-    </tbody>
-  </table>
-}
 
 export default App;
