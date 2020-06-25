@@ -9,11 +9,13 @@ import DailyCasesChart from './DailyCasesChart'
 import Api from './Api'
 import StateCaseDetails from './StateCaseDetails'
 import Languages from './Languages';
-import CasesCard from './CasesCard';
+import CasesCardWrapper from "./CasesCardWrapper";
 function App (props) {
+  
   const [allData, setAllData] = useState(null);
   const [page] = useState(1);
   const [cases, setCases] = useState(null);
+  let [indiaCases, setIndiaCases] = useState(null);
   const [countryNames, setCountries] = useState(null);
   const [indianStatesCases, setIndianStateCases] = useState(null);
   useEffect(() => {
@@ -24,6 +26,8 @@ function App (props) {
       cases => {
         setCases(cases);
         setCountries(cases.map(caseItem => caseItem.country));
+        let indianCases = cases.filter(caseItem => caseItem.country.toLowerCase() === 'india')
+        setIndiaCases(indianCases[0]);
       });
     fetch(Api.getInidanStateCases).then((res) => res.json()).then(
       cases => {
@@ -33,7 +37,10 @@ function App (props) {
 
   return (
     <div className="App container ">
-      <h3> <FormattedMessage id="title" /></h3>
+
+      <h3>
+        <FormattedMessage id="title" />
+      </h3>
       <div className="form-group row">
         <label for="changeLange" className="col-6 ">
           <FormattedMessage id="changeLanguage" />
@@ -41,29 +48,10 @@ function App (props) {
         <div className='col-6 languages-container'>
           <Languages handleLanguageChange={(value) => { props.changeLanguage(value) }} />
         </div>
-
       </div>
-      {allData ?
-        <div className='row'>
-          <div className='col-sm-12 col-md-4 all-cases-card'>
-            <CasesCard cases={[{ "type": 'world', value: allData.cases }]} cardType="cases" />
-          </div>
-          <div className='col-sm-12 col-md-4 critical-card'>
-            <CasesCard cases={[{ "type": 'world', value: allData.critical }]} cardType="critical" />
-          </div>
-          <div className='col-sm-12 col-md-4 recovered-cases-card'>
-            <CasesCard cases={[{ "type": 'world', value: allData.recovered }]} cardType="recovered" />
-          </div>
-          <div className='col-sm-12 col-md-4 deaths-card'>
-            <CasesCard cases={[{ "type": 'world', value: allData.deaths }]} cardType="deaths" />
-          </div>
-          <div className='col-sm-12 col-md-4 tests-card'>
-            <CasesCard cases={[{ "type": 'world', value: allData.tests }]} cardType="tests" />
-          </div>
-        </div> : <Loader />}
+      <CasesCardWrapper allData={allData} indiaCases={indiaCases}></CasesCardWrapper>
+
       <h3> <FormattedMessage id="Every Day Cases per country" /></h3>
-
-
       <div className='row'>
         <div className='col-sm-12'>
           {countryNames ? <DailyCasesChart countryNames={countryNames} /> : <Loader />}
@@ -72,8 +60,10 @@ function App (props) {
       <h3> <FormattedMessage id="Cases per state" /></h3>
 
       <StateCaseDetails cases={indianStatesCases} setCases={setIndianStateCases} ></StateCaseDetails>
-
-      <h3> <FormattedMessage id="Cases per country" /></h3>
+     
+      <h3>
+        <FormattedMessage id="Cases per country" />
+      </h3>
       <CaseDetails cases={cases} setCases={setCases} ></CaseDetails>
 
     </div>
