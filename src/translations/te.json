@@ -1,9 +1,9 @@
 {
-    "title": "కరోనా వివరాలు",
-    "Every Day Cases per country":"దేశాల  వారి  ప్రతి రోజు కేసులు",
-    "Cases per state":"రాష్ట్రాల వారి  కేసులు",
-    "Cases per country":"దేశాల వారి  కేసులు",
-    "cases": "మొత్తం కేసులు",
+    "title": "కరోనా కేసుల వివరాలు",
+    "Every Day Cases per country": "దేశాల  వారి  ప్రతి రోజు కేసులు",
+    "Cases per state": "రాష్ట్రాల వారి  కేసులు",
+    "Cases per country": "దేశాల వారి  కేసులు",
+    "cases": "మొత్తం ",
     "recovered": "కోలుకున్నవి",
     "deaths": "చనిపోయినవి",
     "updated": "చివరిగా నవీకరించబడిన సమయం",
@@ -218,5 +218,7 @@
     "world": "ప్రపంచము",
     "tests": "పరీక్షలు",
     "critical": "క్లిష్టమైనవి",
-    "state": "రాష్ట్రము"
+    "state": "రాష్ట్రము",
+    "Telangana": "తెలంగాణ",
+    "Andhra Pradesh": "ఆంధ్రప్రదేశ్"
 }

@@ -4,6 +4,7 @@ import Utils from './Utils';
 
 export default function CasesCard (props) {
     let { cases, cardType } = props;
+    cases = cases.filter(caseItem => !!caseItem.value);
 
     return (<table className="table total-details">
         <thead>

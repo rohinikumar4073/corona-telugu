@@ -29,3 +29,20 @@ test('Test for four elements present in the card', function () {
     </IntlProvider>);
     expect(wrapper.find('.caseitem-row')).toHaveLength(4);
 });
+test('Test for value empty in the cards not returining any rows', function () {
+    let cases = [{
+        type: 'world',
+        value: 1234
+    }, {
+        type: 'india',
+        value: 1234
+    }, {
+        type: 'andhra'
+    }, {
+        type: 'teleanaga'
+    }]
+    const wrapper = mount(<IntlProvider locale={locale} messages={messages}>
+        <CasesCard cases={cases} cardType="total" />
+    </IntlProvider>);
+    expect(wrapper.find('.caseitem-row')).toHaveLength(2);
+});

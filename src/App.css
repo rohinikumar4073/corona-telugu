@@ -21,21 +21,23 @@
 .container{
   font-weight: bold;
 }
+table thead tr{
+  font-size: large;
+}
 .all-cases-card table{
   background-color: #225eb2;
   color: white;
 }
 .recovered-cases-card table{
-
+  background-color:#1c65cc;
+  color: white;
+}
+.deaths-card table{
   background-color: #dbff56;
   color: black;
 }
-.deaths-card table{
-  background-color: #b22a19;
-  color: white;
-}
 .critical-card table{
-  background-color: #1c65cc;
+  background-color:  #b22a19;
   color: white;
 }
 .tests-card table{
