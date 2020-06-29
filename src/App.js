@@ -10,6 +10,7 @@ import Api from './Api'
 import StateCaseDetails from './StateCaseDetails'
 import Languages from './Languages';
 import CasesCardWrapper from "./CasesCardWrapper";
+
 function App (props) {
 
   const [allData, setAllData] = useState(null);
