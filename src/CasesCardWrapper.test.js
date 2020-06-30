@@ -35,33 +35,33 @@ let indiaCases = { cases: 1234, recovered: 123, deaths: 12, tests: 123, critical
 let totalCases = [
     { "type": 'world', value: allData.cases },
     { "type": 'India', value: indiaCases.cases },
-    { "type": 'Andhra Pradesh', value: andhraCases.cases },
-    { "type": 'Telanagana', value: telanganaCases.cases }
+    { "type": 'Andhra Pradesh', value: andhraCases.total },
+    { "type": 'Telangana', value: telanganaCases.total }
 ];
 let criticalCases = [
     { "type": 'world', value: allData.critical, },
     { "type": 'India', value: indiaCases.critical },
     { "type": 'Andhra Pradesh', value: andhraCases.critical },
-    { "type": 'Telanagana', value: telanganaCases.critical }
+    { "type": 'Telangana', value: telanganaCases.critical }
 ];
 let recoveredCases = [
     { "type": 'world', value: allData.recovered },
     { "type": 'India', value: indiaCases.recovered },
     { "type": 'Andhra Pradesh', value: andhraCases.recovered },
-    { "type": 'Telanagana', value: telanganaCases.recovered }
+    { "type": 'Telangana', value: telanganaCases.recovered }
 ];
 let deathChases = [
     { "type": 'world', value: allData.deaths },
     { "type": 'India', value: indiaCases.deaths },
     { "type": 'Andhra Pradesh', value: andhraCases.deaths },
-    { "type": 'Telanagana', value: telanganaCases.deaths }
+    { "type": 'Telangana', value: telanganaCases.deaths }
 ];
 
 let tests = [
     { "type": 'world', value: allData.tests },
     { "type": 'India', value: indiaCases.tests },
     { "type": 'Andhra Pradesh', value: andhraCases.tests },
-    { "type": 'Telanagana', value: telanganaCases.tests }
+    { "type": 'Telangana', value: telanganaCases.tests }
 ];
 test('Data is passed correctly', function () {
     const wrapper = shallow(
@@ -72,13 +72,13 @@ test('Data is passed correctly', function () {
             indiaCases={indiaCases} />
     );
     expect(wrapper.find(CasesCard).at(0).props().cardType).toBe('cases');
-    expect(wrapper.find(CasesCard).at(1).props().cardType).toBe('critical');
-    expect(wrapper.find(CasesCard).at(2).props().cardType).toBe('recovered');
-    expect(wrapper.find(CasesCard).at(3).props().cardType).toBe('deaths');
-    expect(wrapper.find(CasesCard).at(4).props().cardType).toBe('tests');
+    expect(wrapper.find(CasesCard).at(1).props().cardType).toBe('recovered');
+    expect(wrapper.find(CasesCard).at(2).props().cardType).toBe('deaths');
+    expect(wrapper.find(CasesCard).at(3).props().cardType).toBe('tests');
+    expect(wrapper.find(CasesCard).at(4).props().cardType).toBe('critical');
     expect(wrapper.find(CasesCard).at(0).props().cases).toStrictEqual(totalCases);
-    expect(wrapper.find(CasesCard).at(1).props().cases).toStrictEqual(criticalCases);
-    expect(wrapper.find(CasesCard).at(2).props().cases).toStrictEqual(recoveredCases);
-    expect(wrapper.find(CasesCard).at(3).props().cases).toStrictEqual(deathChases);
-    expect(wrapper.find(CasesCard).at(4).props().cases).toStrictEqual(tests);
+    expect(wrapper.find(CasesCard).at(1).props().cases).toStrictEqual(recoveredCases);
+    expect(wrapper.find(CasesCard).at(2).props().cases).toStrictEqual(deathChases);
+    expect(wrapper.find(CasesCard).at(3).props().cases).toStrictEqual(tests);
+    expect(wrapper.find(CasesCard).at(4).props().cases).toStrictEqual(criticalCases);
 });

@@ -21,6 +21,6 @@ test('Test for the date', function () {
 test('Test for format string', function () {
   let formatString = Utils.convertToLakhs(2500000, 2500000);
   expect(formatString).toBe('25.0');
-  formatString = Utils.convertToLakhs(124, 600);
-  expect(formatString).toBe('124');
+  formatString = Utils.convertToLakhs(124600);
+  expect(formatString).toBe('1.2');
 });

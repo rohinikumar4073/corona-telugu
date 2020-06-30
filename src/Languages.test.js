@@ -13,7 +13,7 @@ test('Test triggering handle changes', function () {
     const spy = jest.fn();
 
     const wrapper = shallow(<Languages handleLanguageChange={spy} />);
-    wrapper.find('#inlineCheckbox2').simulate('change', { target: { value: 'english' } });
+    wrapper.find('#inlineCheckbox2').simulate('change', { target: { value: 'en' } });
     expect(spy).toHaveBeenCalledTimes(1);
     expect(wrapper.find('#inlineCheckbox2[checked="checked"]')).toHaveLength(1);
 });
