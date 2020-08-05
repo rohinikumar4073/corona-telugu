@@ -10,7 +10,7 @@ import Api from './Api'
 import StateCaseDetails from './StateCaseDetails'
 import Languages from './Languages';
 import CasesCardWrapper from "./CasesCardWrapper";
-
+                                      
 function App (props) {
 
   const [allData, setAllData] = useState(null);
@@ -37,7 +37,7 @@ function App (props) {
       cases => {
         setIndianStateCases(cases.states);
         let filterCases = cases.states.filter(caseItem => {
-          return caseItem.state === 'Andhra Pradesh' || caseItem.state === 'Telangana'
+          return caseItem.state === 'Andhra Pradesh' || caseItem.state === 'Telangana'|| caseItem.state === 'Telengana'
         });
         setAndhraCases(filterCases[0]);
         setTelanagaCases(filterCases[1]);

@@ -10,8 +10,8 @@ export default function CasesCardWrapper (props) {
     let totalCases = [
         { "type": 'world', value: allData.cases },
         { "type": 'India', value: indiaCases.cases },
-        { "type": 'Andhra Pradesh', value: andhraCases.total },
-        { "type": 'Telangana', value: telanganaCases.total }
+        { "type": 'Andhra Pradesh', value: andhraCases.cases },
+        { "type": 'Telangana', value: telanganaCases.cases }
     ];
     let criticalCases = [
         { "type": 'world', value: allData.critical, },
