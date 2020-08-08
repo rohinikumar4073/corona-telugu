@@ -6,9 +6,9 @@ import CasesCard from './CasesCard';
 Enzyme.configure({ adapter: new Adapter() });
 import { IntlProvider } from 'react-intl';
 
-import teluguMessages from './translations/te.json';
+import teluguMessages from './translations/en.json';
 
-let locale = 'te';
+let locale = 'en';
 let messages = teluguMessages;
 test('Test for four elements present in the card', function () {
     let cases = [{
@@ -25,7 +25,7 @@ test('Test for four elements present in the card', function () {
         value: 1234
     }]
     const wrapper = mount(<IntlProvider locale={locale} messages={messages}>
-        <CasesCard cases={cases} cardType="total" />
+        <CasesCard cases={cases} cardType="Total" />
     </IntlProvider>);
     expect(wrapper.find('.caseitem-row')).toHaveLength(4);
 });
@@ -34,7 +34,7 @@ test('Test for value empty in the cards not returining any rows', function () {
         type: 'world',
         value: 1234
     }, {
-        type: 'india',
+        type: 'India',
         value: 1234
     }, {
         type: 'andhra'
@@ -42,7 +42,7 @@ test('Test for value empty in the cards not returining any rows', function () {
         type: 'teleanaga'
     }]
     const wrapper = mount(<IntlProvider locale={locale} messages={messages}>
-        <CasesCard cases={cases} cardType="total" />
+        <CasesCard cases={cases} cardType="Total" />
     </IntlProvider>);
     expect(wrapper.find('.caseitem-row')).toHaveLength(2);
 });

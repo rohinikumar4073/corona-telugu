@@ -6,12 +6,12 @@ import CasesCardWrapper from './CasesCardWrapper';
 import CasesCard from './CasesCard';
 import Loader from "./Loader";
 import each from 'jest-each';
-
+import mockData from './mocks/mockData'
 Enzyme.configure({ adapter: new Adapter() });
 
 test('Cases card wrapper tests', function () {
     const wrapper = shallow(
-        <CasesCardWrapper allData={{}} indiaCases={{}} andhraCases={{}} telanganaCases={{}} />
+        <CasesCardWrapper allData={mockData.allData} indiaCases={mockData.indiaCases} andhraCases={mockData.andhraCases} telanganaCases={mockData.telanganaCases} />
     );
     expect(wrapper.find(CasesCard)).toHaveLength(5);
 
