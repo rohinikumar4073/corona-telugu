@@ -5,7 +5,6 @@ import Utils from './Utils';
 export default function CasesCard (props) {
     let { cases, cardType } = props;
     cases = cases.filter(caseItem => !!caseItem.value);
-
     return (<table className="table total-details">
         <thead>
             <tr>
@@ -14,8 +13,8 @@ export default function CasesCard (props) {
         </thead>
         <tbody>
             {
-                cases.map(caseitem => {
-                    return (<tr className='caseitem-row'>
+                cases.map((caseitem, index) => {
+                    return (<tr key={index} className='caseitem-row'>
                         <td><FormattedMessage id={caseitem.type} /></td>
                         <td>{Utils.convertToIndianMetrics(caseitem.value)}</td>
                     </tr>)
